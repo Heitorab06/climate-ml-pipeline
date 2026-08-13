@@ -1,21 +1,29 @@
 import requests
-import pandas
+import pandas as pd
 
-url = "https://archive-api.open-meteo.com/v1/archive"
+url = "https://historical-forecast-api.open-meteo.com/v1/forecast"
 
 lat = -12.9822499
 long = -38.4812772
-data = ["temperature_2m"]
+features = [
+            "temperature_2m", "relative_humidity_2m", "dew_point_2m",
+            "apparent_temperature", "precipitation", "rain",
+            "pressure_msl", "cloud_cover", "wind_speed_10m", 
+            "wind_direction_10m", "wind_gusts_10m"
+            ]
+
 
 params = {
     "latitude": lat,
     "longitude": long,
-    "hourly": data
+    "start_date": "2023-01-01",
+	"end_date": "2025-12-31",
+    "hourly": features
 }
 
 r = requests.get(url=url, params=params)
-
 json = r.json()
 
-for key in json:
-    print(key)
+df = pd.DataFrame(json["hourly"])
+
+print(df.shape)
