@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-import config
+import src.config as config
 from typing import Any
 
 def get_weather_data(
