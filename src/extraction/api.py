@@ -1,7 +1,10 @@
-import requests
-import pandas as pd
-import src.config as config
 from typing import Any
+
+import pandas as pd
+import requests
+
+from src import config
+
 
 def get_weather_data(
     url: str | None=None, 

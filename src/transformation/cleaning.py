@@ -1,6 +1,4 @@
 import pandas as pd
-from src.extraction.api import get_weather_data
-from datetime import datetime
 
 df = pd.read_parquet("data/weather_raw.parquet")
 
