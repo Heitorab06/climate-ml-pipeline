@@ -2,3 +2,4 @@ pandas
 requests
 sqlalchemy
 pyarrow
+psycopg2-binary
