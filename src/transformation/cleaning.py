@@ -20,3 +20,5 @@ def set_index_time(df: pd.DataFrame) -> pd.DataFrame:
 
 df = clean_data(df=df)
 
+#Executar uma vez
+#df.to_parquet("data/weather_clean.parquet")
