@@ -4,3 +4,4 @@ sqlalchemy
 pyarrow
 psycopg2-binary
 python-dotenv
+scikit-learn
