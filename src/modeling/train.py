@@ -1,6 +1,5 @@
-import pandas as pd
-from src.modeling.feature_engineering import run_feature_engineering
 from src.loading.database import select
+from src.modeling.feature_engineering import run_feature_engineering
 
 #from scikit-learn import (model)
 
