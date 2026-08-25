@@ -20,7 +20,7 @@ def create_lag_features(df:pd.DataFrame, cols: list[str], lags: list[int]) -> pd
     return df
 
 def drop_null_lags(df:pd.DataFrame) -> pd.DataFrame:
-    df = df.dropna(subset=["temperature_2m"])
+    df = df.dropna()
     
     return df
 
