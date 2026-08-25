@@ -6,6 +6,7 @@ from src.loading.database import select
 df = select("SELECT * FROM WEATHER")
 print(df.columns)
 
+
 def create_lag_features(df:pd.DataFrame, cols: list[str], lags: list[int]) -> pd.DataFrame:
     for col in cols:
         for lag in lags:
@@ -18,6 +19,10 @@ def create_lag_features(df:pd.DataFrame, cols: list[str], lags: list[int]) -> pd
     
     return df
 
+def drop_null_lags(df:pd.DataFrame) -> pd.DataFrame:
+    df = df.dropna(subset=["temperature_2m"])
+    
+    return df
 
 def create_time_cyclical_features(df:pd.DataFrame) -> pd.DataFrame:
     
@@ -41,7 +46,9 @@ def run_feature_engineering(df:pd.DataFrame)-> pd.DataFrame:
     return (df.copy()
             .pipe(create_lag_features, cols=lag_features, lags=[1,2,3,6])
             .pipe(create_time_cyclical_features)
-            .pipe(create_target))
+            .pipe(create_target)
+            .pipe(drop_null_lags)
+            )
     
 df = run_feature_engineering(df.copy())
 print(df["rain_next_hour"].value_counts().head(50))
