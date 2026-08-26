@@ -3,9 +3,6 @@ import pandas as pd
 
 from src.loading.database import select
 
-df = select("SELECT * FROM WEATHER")
-print(df.columns)
-
 
 def create_lag_features(df:pd.DataFrame, cols: list[str], lags: list[int]) -> pd.DataFrame:
     for col in cols:
@@ -36,7 +33,7 @@ def create_time_cyclical_features(df:pd.DataFrame) -> pd.DataFrame:
 
 def create_target(df:pd.DataFrame) -> pd.DataFrame:
     
-    df["rain_next_hour"] = (df["precipitation"].shift(-1) >= 0.02).astype(int)
+    df["rain_next_hour"] = (df["precipitation"].shift(-1) >= 0.2).astype(int)
     
     return df
 
@@ -50,5 +47,8 @@ def run_feature_engineering(df:pd.DataFrame)-> pd.DataFrame:
             .pipe(drop_null_lags)
             )
     
-df = run_feature_engineering(df.copy())
+
+df = select("SELECT * FROM WEATHER")
+
+df = run_feature_engineering(df=df)
 print(df["rain_next_hour"].value_counts().head(50))
