@@ -15,7 +15,7 @@ def get_weather_data(
     params = params or config.PARAMS
     
     r = requests.get(url=url, params=params)
-    r.raise_for_status() #trata erros na requisição
+    r.raise_for_status() 
     json_data = r.json()
     df = pd.DataFrame(json_data["hourly"])
     

@@ -17,7 +17,7 @@ def get_dataframe() -> pd.DataFrame:
     
     return df
 
-def prepare_model_dataset(
+def prepare_data(
     target_col: str ='rain_next_hour',
     time_col: str ='time',
     train_ratio: float = 0.8
@@ -73,11 +73,3 @@ def inicialize_models(scale_pos_weight: float) -> dict[str, Any]:
                 )
     }
     return models
-
-data = prepare_model_dataset()
-models = train_models(data=data)
-
-
-
-
-    
