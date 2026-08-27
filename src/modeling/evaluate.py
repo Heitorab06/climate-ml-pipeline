@@ -1,16 +1,16 @@
 import os
-
 from typing import Any
+
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import (
+    ConfusionMatrixDisplay,
     average_precision_score,
+    confusion_matrix,
     f1_score,
+    precision_recall_curve,
     precision_score,
     recall_score,
-    confusion_matrix,
-    precision_recall_curve,
-    ConfusionMatrixDisplay,
 )
 
 

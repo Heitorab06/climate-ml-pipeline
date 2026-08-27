@@ -1,17 +1,17 @@
 import argparse
 import os
 
+from src import config
 from src.extraction.api import get_weather_data
 from src.loading.database import check_database_has_data, save_to_database
 from src.modeling.evaluate import (
     evaluate_models,
+    generate_graphics,
     load_metrics,
     save_metrics,
-    generate_graphics,
 )
 from src.modeling.train import prepare_data, train_models
 from src.transformation.cleaning import clean_data
-from src import config
 
 METRICS_FILE = config.METRICS_FILE
 

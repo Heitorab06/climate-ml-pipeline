@@ -1,3 +1,4 @@
+import logging
 import os
 
 import pandas as pd
@@ -39,7 +40,8 @@ def select(query:str) -> pd.DataFrame:
 def check_database_has_data(table_name: str = "weather") -> bool:
 
     query = f"SELECT 1 FROM {table_name} LIMIT 1;"
-    
+    logger = logging.getLogger(__name__)
+ 
     try:
         result = select(query)  
         
@@ -48,6 +50,7 @@ def check_database_has_data(table_name: str = "weather") -> bool:
 
         return not result.empty
         
-    except Exception:
+    except Exception as e:
+        logger.error("Error when accessing database", exc_info=e)
         return False
 
