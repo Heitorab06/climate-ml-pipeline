@@ -7,6 +7,7 @@ from src.modeling.evaluate import (
     evaluate_models,
     load_metrics,
     save_metrics,
+    generate_graphics,
 )
 from src.modeling.train import prepare_data, train_models
 from src.transformation.cleaning import clean_data
@@ -44,7 +45,7 @@ def run_ml_pipeline():
 
     print("4. Saving metrics...")
     save_metrics(results, METRICS_FILE)
-    #generate_graphics(models, data)
+    generate_graphics(models, data, results)
     
     return results
 

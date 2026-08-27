@@ -46,7 +46,7 @@ def check_database_has_data(table_name: str = "weather") -> bool:
         if result is None:
             return False
 
-        return bool(result)
+        return not result.empty
         
     except Exception:
         return False
