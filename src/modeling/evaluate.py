@@ -29,3 +29,7 @@ def evaluate_models(models: dict[str, Any], data: dict[str, Any])-> dict[str, An
         })
 
         return pd.DataFrame(results).sort_values(by='PR-AUC', ascending=False)
+
+def generate_graphics(metrics: pd.DataFrame) -> None:
+    
+    pass
