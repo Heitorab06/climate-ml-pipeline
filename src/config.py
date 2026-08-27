@@ -17,3 +17,5 @@ PARAMS = {
 	"end_date": "2025-12-31",
     "hourly": FEATURES
 }
+
+METRICS_FILE = "reports/metrics.csv"
