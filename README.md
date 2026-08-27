@@ -190,6 +190,45 @@ $$\text{rain\_next\_hour} = \begin{cases} 1, & \text{if precipitation in the nex
 
 ---
 
+## Results & Model Performance
+
+The classification models were evaluated on the held-out test set (chronological 20% split) with a focus on metrics suitable for imbalanced datasets (such as **PR-AUC** / Average Precision and **F1-Score**):
+
+### Performance Metrics Table
+
+| Model | PR-AUC | F1-Score | Recall | Precision |
+| :--- | :---: | :---: | :---: | :---: |
+| **XGBoost** | **0.7216** | 0.6539 | 0.7439 | 0.5833 |
+| **Random Forest** | 0.7187 | **0.6603** | 0.6866 | **0.6358** |
+| **Logistic Regression** | 0.7129 | 0.6479 | **0.8474** | 0.5245 |
+
+### Key Observations
+- **XGBoost:** Achieved the highest overall **PR-AUC (0.7216)**, demonstrating the best trade-off between precision and recall across all classification thresholds.
+- **Random Forest:** Delivered the highest **Precision (63.58%)** and top **F1-Score (0.6603)**, producing fewer false rain alarms.
+- **Logistic Regression:** Yielded the highest **Recall (84.74%)**, successfully identifying most rain events, though with higher false positive rates.
+
+---
+
+### Evaluation Visualizations
+
+#### Precision-Recall Curve Comparison
+The PR curve highlights the superiority of all three trained models compared to the no-skill baseline (prevalence rate):
+
+![Precision-Recall Curve](results/pr_curve.png)
+
+#### Top Feature Importances (XGBoost)
+The most influential predictors identified by XGBoost include recent precipitation lags, accumulated 3h rainfall, and variation in atmospheric pressure and humidity:
+
+![Feature Importance XGBoost](results/feature_importance_xgboost.png)
+
+#### Confusion Matrices
+
+| XGBoost | Random Forest | Logistic Regression |
+| :---: | :---: | :---: |
+| ![CM XGBoost](results/confusion_matrix_xgboost.png) | ![CM Random Forest](results/confusion_matrix_random_forest.png) | ![CM Logistic Regression](results/confusion_matrix_logistic_regression.png) |
+
+---
+
 ## Current Status
 
 The base end-to-end pipeline is **complete and functional**:
