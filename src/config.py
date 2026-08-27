@@ -18,4 +18,4 @@ PARAMS = {
     "hourly": FEATURES
 }
 
-METRICS_FILE = "reports/metrics.csv"
+METRICS_FILE = "results/metrics.csv"

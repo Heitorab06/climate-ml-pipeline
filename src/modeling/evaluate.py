@@ -1,14 +1,15 @@
+import os
+
 from typing import Any
-import matplotlib.pyplot as plt
+
 import pandas as pd
-
-
-from sklearn.metrics import(
+from sklearn.metrics import (
     average_precision_score,
     f1_score,
     precision_score,
-    recall_score
-    )
+    recall_score,
+)
+
 
 def evaluate_models(models: dict[str, Any], data: dict[str, Any])-> pd.DataFrame:
     results = []
@@ -32,7 +33,8 @@ def evaluate_models(models: dict[str, Any], data: dict[str, Any])-> pd.DataFrame
 
     return results_df
 
-def save_metrics(metrics_df: pd.DataFrame, file_path: str = "reports/metrics.csv") -> None:
+def save_metrics(metrics_df: pd.DataFrame, file_path: str = "results/metrics.csv") -> None:
+    os.makedirs('results', exist_ok=True)
     metrics_df.to_csv(file_path, index=False)
 
 def load_metrics(file_path: str = "reports/metrics.csv") -> pd.DataFrame:

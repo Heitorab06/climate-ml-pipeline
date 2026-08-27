@@ -51,4 +51,3 @@ def run_feature_engineering(df:pd.DataFrame)-> pd.DataFrame:
 df = select("SELECT * FROM WEATHER")
 
 df = run_feature_engineering(df=df)
-print(df["rain_next_hour"].value_counts().head(50))

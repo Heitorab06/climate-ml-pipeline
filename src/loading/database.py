@@ -19,9 +19,8 @@ def connect() -> Engine:
     return engine
 
 
-def upload_to_postgres() -> None:
+def save_to_database(df: pd.DataFrame) -> None:
     engine = connect()
-    df = pd.read_parquet("data/weather_clean.parquet")
     
     df.to_sql(
         name = "weather",
@@ -36,4 +35,19 @@ def select(query:str) -> pd.DataFrame:
     engine = connect()
     df = pd.read_sql(query, con=engine)
     return df
+
+def check_database_has_data(table_name: str = "weather") -> bool:
+
+    query = f"SELECT 1 FROM {table_name} LIMIT 1;"
+    
+    try:
+        result = select(query)  
+        
+        if result is None:
+            return False
+
+        return bool(result)
+        
+    except Exception:
+        return False
 
