@@ -1,7 +1,7 @@
 {
-    "n_estimators": 195,
-    "max_depth": 3,
-    "learning_rate": 0.07822714582100043,
-    "subsample": 0.8754979180961232,
-    "scale_pos_weight": 8.718270495598642
+    "n_estimators": 194,
+    "max_depth": 4,
+    "learning_rate": 0.047747884330947565,
+    "subsample": 0.9761788582619335,
+    "scale_pos_weight": 7.2839045017915405
 }
