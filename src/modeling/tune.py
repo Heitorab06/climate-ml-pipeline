@@ -10,8 +10,19 @@ from xgboost import XGBClassifier
 PARAMS_PATH = "results/xgb_best_params.json"
 
 def run_tuning(data: dict) -> dict:
-    """Use optuna for parameter optimization"""
-    
+    """Optimize XGBoost hyperparameters using Optuna and TimeSeriesSplit.
+
+    Executes a 50-trial Bayesian optimization study to maximize PR-AUC using
+    5-fold time-series cross-validation. The best hyperparameters are saved to
+    PARAMS_PATH as a JSON file.
+
+    Args:
+        data (dict): Dictionary containing the dataset splits, specifically
+            'X_train' and 'y_train'.
+
+    Returns:
+        dict: Dictionary containing the best hyperparameters found by Optuna.
+    """
     os.makedirs(os.path.dirname(PARAMS_PATH), exist_ok=True)
     
     def objective(trial):

@@ -15,6 +15,22 @@ from sklearn.metrics import (
 
 
 def evaluate_models(models: dict[str, Any], data: dict[str, Any])-> pd.DataFrame:
+    """Evaluate trained machine learning models on test data.
+
+    Computes PR-AUC, F1-Score, Recall, and Precision for each model on the test
+    split, using scaled features for logistic regression and unscaled features
+    for tree-based models.
+
+    Args:
+        models (dict[str, Any]): Dictionary mapping model names to fitted model
+            instances.
+        data (dict[str, Any]): Dictionary containing test datasets ('X_test',
+            'X_test_scaled', 'y_test').
+
+    Returns:
+        pd.DataFrame: Performance metrics for each model, sorted by PR-AUC in
+            descending order.
+    """
     results = []
 
     for name, model in models.items():
@@ -37,14 +53,43 @@ def evaluate_models(models: dict[str, Any], data: dict[str, Any])-> pd.DataFrame
     return results_df
 
 def save_metrics(metrics_df: pd.DataFrame, file_path: str = "results/metrics.csv") -> None:
+    """Save model evaluation metrics to a CSV file.
+
+    Args:
+        metrics_df (pd.DataFrame): DataFrame containing evaluated model metrics.
+        file_path (str): Destination path for saving the CSV file. Defaults to
+            "results/metrics.csv".
+    """
     os.makedirs('results', exist_ok=True)
     metrics_df.to_csv(file_path, index=False)
 
 def load_metrics(file_path: str = "reports/metrics.csv") -> pd.DataFrame:
+    """Load model evaluation metrics from a CSV file.
+
+    Args:
+        file_path (str): File path of the CSV containing metrics. Defaults to
+            "reports/metrics.csv".
+
+    Returns:
+        pd.DataFrame: Loaded metrics DataFrame.
+    """
     return pd.read_csv(file_path)
 
 def generate_graphics(models: dict, data: dict, results: pd.DataFrame, output_dir: str = "results") -> None:
-    
+    """Generate and save evaluation plots.
+
+    Creates and saves:
+    1. Precision-Recall curves comparison for all models.
+    2. Confusion matrices for each individual model.
+    3. Top 10 feature importances plot for XGBoost if present.
+
+    Args:
+        models (dict): Dictionary of trained model instances.
+        data (dict): Dictionary containing test data and training feature names.
+        results (pd.DataFrame): DataFrame with model evaluation results.
+        output_dir (str): Destination directory for the generated images.
+            Defaults to "results".
+    """
     os.makedirs(output_dir, exist_ok=True)
     
     # 1. PR Curve (All 3 models together)

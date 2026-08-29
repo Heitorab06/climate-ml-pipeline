@@ -17,8 +17,11 @@ from src.transformation.cleaning import clean_data
 METRICS_FILE = config.METRICS_FILE
 
 def run_data_pipeline() -> None:
-    """Execute data pipeline: Extraction -> Cleaning -> Upload to database"""
-    
+    """Execute the data pipeline (ETL): Extraction -> Cleaning -> Loading.
+
+    Extracts raw weather forecast data from the API, cleans and formats the
+    features, and persists the resulting records to the PostgreSQL database.
+    """
     print("\n" + "="*40)
     print(">>> EXECUTING DATA PIPELINE (ETL)")
     print("="*40)
@@ -35,7 +38,15 @@ def run_data_pipeline() -> None:
     
     
 def run_ml_pipeline():
-    
+    """Execute the machine learning pipeline: Prepare -> Train -> Evaluate.
+
+    Prepares dataset features, fits classification models (Logistic Regression,
+    Random Forest, XGBoost), evaluates test performance metrics, saves metric
+    summaries to CSV, and generates visual graphics.
+
+    Returns:
+        pd.DataFrame: Evaluation metrics comparing all trained models.
+    """
     print("\n" + "="*40)
     print(">>> EXECUTING MACHINE LEARNING PIPELINE")
     print("="*40)
@@ -55,6 +66,11 @@ def run_ml_pipeline():
     return results
 
 def main():
+    """Parse CLI arguments and orchestrate pipeline execution.
+
+    Handles conditional execution of ETL (--etl), hyperparameter tuning (--tune),
+    and model retraining (--retrain), then displays model performance metrics.
+    """
     parser = argparse.ArgumentParser(description="End-to-End weather prediction pipeline")
     parser.add_argument(
         "--etl", 
