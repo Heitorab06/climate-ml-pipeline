@@ -1,6 +1,5 @@
 import pandas as pd
 
-df = pd.read_parquet("data/weather_raw.parquet")
 
 def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     return (df.copy()
@@ -18,5 +17,4 @@ def set_index_time(df: pd.DataFrame) -> pd.DataFrame:
     df = df.set_index("time")
     return df
 
-df = clean_data(df=df)
 

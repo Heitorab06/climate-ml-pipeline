@@ -1,3 +1,5 @@
+import json
+import os
 from typing import Any
 
 import pandas as pd
@@ -10,6 +12,7 @@ from xgboost import XGBClassifier
 from src.loading.database import select
 from src.modeling.feature_engineering import run_feature_engineering
 
+PARAMS_FILE = "results/xgb_best_params.json"
 
 def get_dataframe() -> pd.DataFrame:
     df = select("SELECT * FROM WEATHER")
@@ -54,6 +57,20 @@ def train_models(data: dict[str, Any]) -> dict[str, Any]:
 
 def inicialize_models(scale_pos_weight: float) -> dict[str, Any]:
     
+    if os.path.exists(PARAMS_FILE):
+        print(f"[INFO] Loading hyperparameters from '{PARAMS_FILE}'...")
+        with open(PARAMS_FILE, "r") as f:
+            xgb_params = json.load(f)
+        xgb = XGBClassifier(**xgb_params)
+    else:
+        print("[INFO] Optuna parameters  not found. Using default parameters...")
+        xgb = XGBClassifier(
+            scale_pos_weight=scale_pos_weight,
+            eval_metric="logloss",
+            random_state=42,
+            n_jobs = -1
+        )
+        
     models={
         'logistic_regression': LogisticRegression(
                 class_weight='balanced',
@@ -66,10 +83,6 @@ def inicialize_models(scale_pos_weight: float) -> dict[str, Any]:
                 n_jobs=-1,
                 random_state=42
                 ),
-        'xgboost': XGBClassifier(
-                scale_pos_weight=scale_pos_weight,
-                eval_metric='logloss',
-                random_state=42
-                )
+        'xgboost': xgb
     }
     return models
