@@ -96,8 +96,3 @@ def run_feature_engineering(df:pd.DataFrame)-> pd.DataFrame:
             .pipe(create_target)
             .pipe(drop_null_lags)
             )
-    
-
-df = select("SELECT * FROM WEATHER")
-
-df = run_feature_engineering(df=df)
