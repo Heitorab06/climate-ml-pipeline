@@ -76,6 +76,6 @@ def check_database_has_data(table_name: str = "weather") -> bool:
         return not result.empty
         
     except Exception as e:
-        logger.error("Error when accessing database", exc_info=e)
+        logger.info("Table not found or empty. Data pipeline will be executed.")
         return False
 
